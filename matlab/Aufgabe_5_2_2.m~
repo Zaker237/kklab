@@ -1,0 +1,52 @@
+
+message = text_to_bitsream('this is a message');
+
+X = 
+
+[h g] = generate_matrix(3);
+
+
+
+
+
+function [H G] = generate_matrix(m)
+    N = 2^m - 1;
+    K = 2^m -m -1;
+    h(1,m) = 1;
+    disp(h);
+    for i=1:(m-1)
+        h(1,i) = 0;
+    end
+    for j = 2:N
+        a = de2bi(i);
+        b = fliplr(a);
+        [c, d] = size(b);
+        if(d<m)
+           e = [0];
+           for f = 1:(m-d)
+              e(1,f) = 0;
+           end
+           g = [e b];
+           h(j,:) = g;
+        end
+        if d==m
+           h(j,:) = b; 
+        end
+    end
+    disp(h);
+    [a1, b1] = size(h);
+    
+    for w = 1:a1
+        s = sum(h(w,:));
+        if s ~=1
+           h(i,:) = h(w,:);
+           w = w+1;
+        end
+    end
+    
+    T = h';
+    [a2,b2] = size(h);
+    P = T(1:m, (b2-K+1):b2);
+    G = [eye(K) P'];
+    H = [P eye(m)];
+end
